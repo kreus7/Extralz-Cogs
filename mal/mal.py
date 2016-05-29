@@ -1,18 +1,20 @@
 import discord
 from discord.ext import commands
 from .utils.chat_formatting import *
+from .utils import checks
+from .utils.dataIO import dataIO
 from __main__ import send_cmd_help
-import aiohttp
 from xml.etree import ElementTree
+import aiohttp
 import html
-
-MAL_USERNAME = 'MAL_USERNAME'
-MAL_PASSWORD = 'MAL_PASSWORD'
+import os
 
 class AnimuAndMango:
     def __init__(self,bot):
         self.bot = bot
+        self.credentials = dataIO.load_json("data/mal/credentials.json")
 
+    # Searches for and fetches an anime
     @commands.command(pass_context=True)
     async def animu(self, ctx, *text):
         """Gives you information about an animu."""
@@ -26,6 +28,7 @@ class AnimuAndMango:
         else:
             await send_cmd_help(ctx)
 
+    # Searches for and fetches a manga
     @commands.command(pass_context=True)
     async def mango(self, ctx, *text):
         """Gives you information about a mango."""
@@ -39,19 +42,57 @@ class AnimuAndMango:
         else:
             await send_cmd_help(ctx)
 
+    # Command group for setting MyAnimeList credentials
+    @commands.group(pass_context=True)
+    async def malset(self, ctx):
+        """Manages MyAnimeList settings"""
+        if ctx.invoked_subcommand is None:
+            await send_cmd_help(ctx)
+
+    # Sets the username used to fetch articles from MyAnimeList
+    @malset.command(name="username")
+    @checks.is_owner()
+    async def _username_malset(self, *username):
+        """Sets the username used to log into MyAnimeList
+
+           Please consider sending this to the bot privately"""
+        if len(username) == 1:
+            self.credentials["username"] = username
+            dataIO.save_json("data/mal/credentials.json", self.credentials)
+            await self.bot.say("Username set.")
+        else:
+            await self.bot.say("Invalid username.")
+
+    # Sets the password used to fetch articles from MyAnimeList
+    @malset.command(name="password")
+    @checks.is_owner()
+    async def _password_malset(self, *password):
+        """Sets the password used to log into MyAnimeList
+
+           Please consider sending this to the bot privately"""
+        if len(password) > 0:
+            msg = " ".join(password)
+            self.credentials["password"] = msg
+            dataIO.save_json("data/mal/credentials.json", self.credentials)
+            await self.bot.say("Password set.")
+        else:
+            await self.bot.say("Invalid password.")
+
+# Fetches a list of anime/manga, prompts the user to select one, and returns its information.
 async def fetch_article(self, ctx, msg, nature):
+    self.credentials = dataIO.load_json("data/mal/credentials.json")
     search =  "http://myanimelist.net/api/{}/search.xml?q={}".format(nature, msg)
+
     try:
-        auth = aiohttp.BasicAuth(login = MAL_USERNAME, password = MAL_PASSWORD)
+        auth = aiohttp.BasicAuth(login = self.credentials["username"], password = self.credentials["password"])
         with aiohttp.ClientSession(auth=auth) as s:
             async with s.get(search) as r:
                 data = await r.text()
         if not data:
-            await self.bot.say("I didn't find anything :cry: ...")
-            return
+            return "I didn't find anything :cry: ..."
         root = ElementTree.fromstring(data)
         if len(root) == 0:
-            await self.bot.say("Sorry, I found nothing :cry:.")
+            return "Sorry, I found nothing :cry:."
         elif len(root) == 1:
             entry = root[0]
         else:
@@ -93,5 +134,22 @@ async def fetch_article(self, ctx, msg, nature):
     except:
         self.bot.say("Error fetching article")
 
+# Checks if the data folder exists and, if not, creates it
+def check_folder():
+    if not os.path.exists("data/mal"):
+        print ("Creating data/mal folder...")
+        os.makedirs("data/mal")
+
+# Checks if the credentials json exists and, if not, initiates it with default values
+def check_files():
+    credentials = {"username":"undefined",
+                   "password":"undefined"}
+
+    if not dataIO.is_valid_json("data/mal/credentials.json"):
+        print ("Creating default mal credentials.json...")
+        dataIO.save_json("data/mal/credentials.json", credentials)
+
 def setup(bot):
+    check_folder()
+    check_files()
     bot.add_cog(AnimuAndMango(bot))
