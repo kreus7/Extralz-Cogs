@@ -1,11 +1,6 @@
 {
     "AUTHOR" : "Alzarath",
-    "DESCRIPTION" : "Usage: [p]animu [text...] to search for and display information about an anime
-                     Usage: [p]mango [text...] to search for and display information about a manga
-
-                     Usage: [p]malset is used to set credential for MyAnimeList
-
-                     Searches http://myanimelist.net/ for an anime or manga.",
+    "DESCRIPTION" : "Usage: [p]animu [text...] to search for and display information about an anime\nUsage: [p]mango [text...] to search for and display information about a manga\n\nUsage: [p]malset is used to set credential for MyAnimeList\n\nSearches http://myanimelist.net/ for an anime or manga.",
     "DISABLED" : false,
     "NAME" : "Searches for and posts information about anime and manga"
 }

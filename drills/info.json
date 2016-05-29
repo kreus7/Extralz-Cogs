@@ -1,8 +1,6 @@
 {
     "AUTHOR" : "Alzarath",
-    "DESCRIPTION" : "Usage: [p]drills
-
-                     Posts drills.",
+    "DESCRIPTION" : "Usage: [p]drills\n\nPosts drills.",
     "DISABLED" : false,
     "NAME" : "Did someone say drills?"
 }
