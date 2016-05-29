@@ -1,0 +1,10 @@
+{
+    "AUTHOR" : "Alzarath",
+    "DESCRIPTION" : "Usage: [p]xkcd or [p]xkcd latest to get the most recent comic
+                     Usage: [p]xkcd random to get a random comic
+                     Usage: [p]xkcd [number] to get a specific comic
+
+                     Grabs a comic from http://xkcd.com/.",
+    "DISABLED" : false,
+    "NAME" : "Grabs XKCD comics"
+}
