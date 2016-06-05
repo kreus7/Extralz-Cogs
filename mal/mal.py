@@ -9,15 +9,15 @@ import aiohttp
 import html
 import os
 
-class AnimuAndMango:
+class MAL:
     def __init__(self,bot):
         self.bot = bot
         self.credentials = dataIO.load_json("data/mal/credentials.json")
 
     # Searches for and fetches an anime
     @commands.command(pass_context=True)
-    async def animu(self, ctx, *text):
-        """Gives you information about an animu."""
+    async def anime(self, ctx, *text):
+        """Gives you information about an anime."""
         if len(text) > 0:
             msg = "+".join(text)
             url = await fetch_article(self, ctx, msg=msg, nature="anime")
@@ -30,8 +30,8 @@ class AnimuAndMango:
 
     # Searches for and fetches a manga
     @commands.command(pass_context=True)
-    async def mango(self, ctx, *text):
-        """Gives you information about a mango."""
+    async def manga(self, ctx, *text):
+        """Gives you information about a manga."""
         if len(text) > 0:
             msg = "+".join(text)
             url = await fetch_article(self, ctx, msg=msg, nature="manga")
@@ -60,6 +60,8 @@ class AnimuAndMango:
             self.credentials["username"] = username
             dataIO.save_json("data/mal/credentials.json", self.credentials)
             await self.bot.say("Username set.")
+        elif len(username) <= 0:
+            await send_cmd_help(ctx)
         else:
             await self.bot.say("Invalid username.")
 
@@ -75,10 +77,12 @@ class AnimuAndMango:
             self.credentials["password"] = msg
             dataIO.save_json("data/mal/credentials.json", self.credentials)
             await self.bot.say("Password set.")
+        elif len(password) <= 0:
+            await send_cmd_help(ctx)
         else:
             await self.bot.say("Invalid password.")
 
-# Fetches a list of anime/manga, prompts the user to select one, and returns its information.
+# Fetches a list of anime or manga, prompts the user to select one, and returns its information.
 async def fetch_article(self, ctx, msg, nature):
     self.credentials = dataIO.load_json("data/mal/credentials.json")
     search =  "http://myanimelist.net/api/{}/search.xml?q={}".format(nature, msg)
@@ -89,14 +93,14 @@ async def fetch_article(self, ctx, msg, nature):
             async with s.get(search) as r:
                 data = await r.text()
         if not data:
-            return "I didn't find anything :cry: ..."
+            return "Your search terms gave no results."
         root = ElementTree.fromstring(data)
         if len(root) == 0:
-            return "Sorry, I found nothing :cry:."
+            return "Your search terms gave no results."
         elif len(root) == 1:
             entry = root[0]
         else:
-            msg = "**Please choose one by giving its number.**\n"
+            msg = "**Enter a number:**\n"
             msg += "\n".join([ '{} - {}'.format(n+1, entry[1].text) for n, entry in enumerate(root) if n < 10 ])
 
             await self.bot.say(msg)
