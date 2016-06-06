@@ -50,7 +50,7 @@ async def fetch_comic(self, comic):
 
         # If the list contains an expected image, return the title and url of the image
         if website["img"]:
-            return "**{}** {}".format(website["title"], website["img"])
+            return "**{}** {}\nAlt: {}".format(website["title"], website["img"], website["alt"])
 
     # If an error occurs, assume it couldn't find the comic and return an error
     except:
