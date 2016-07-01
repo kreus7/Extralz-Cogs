@@ -156,4 +156,4 @@ def check_files():
 def setup(bot):
     check_folder()
     check_files()
-    bot.add_cog(AnimuAndMango(bot))
+    bot.add_cog(MAL(bot))
