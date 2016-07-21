@@ -1,0 +1,7 @@
+{
+    "AUTHOR" : "Alzarath",
+    "INSTALL_MSG" : "This cog requires you install the dice dependency.\nRun `pip3 install dice` to use it.",
+    "NAME" : "Dice",
+    "SHORT" : "Rolls dice using python's dice library",
+    "DESCRIPTION" : "Usage: [p]dice [sides] to roll one dice with the specified number of sides\nUsage: [p]dice [dice]d[sides] to roll multiple dice with the specified number of sides\n\nYou can use modifiers with the dice rolls."
+}
