@@ -1,0 +1,6 @@
+{
+    "AUTHOR" : "Alzarath",
+    "NAME" : "GroupList",
+    "SHORT" : "A simple cog used to list all users that currently use a role.",
+    "DESCRIPTION" : "Usage: [p]grouplist [role] lists all members that are assigned the designated role, separated by online and offline."
+}
