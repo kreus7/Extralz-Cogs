@@ -8,19 +8,24 @@ class GroupList:
     def __init__(self,bot):
         self.bot = bot
 
-    @commands.command(pass_context=True)
-    async def grouplist(self, ctx, group : discord.Role = None):
+    @commands.command(pass_context=True, no_pm=True)
+    async def grouplist(self, ctx, group:discord.Role=None):
         """Lists all users from a group"""
+        if ctx.invoked_subcommand is None:
+            return await send_cmd_help(ctx)
+
         server = ctx.message.server
         onlineMembers = []
         offlineMembers = []
         sentMessage = ""
+
         for x in server.members:
             if group in x.roles:
                 if str(x.status) != "offline":
                     onlineMembers.append("{}\n".format(x))
                 else:
                     offlineMembers.append("{}\n".format(x))
+
         if onlineMembers != []:
             sentMessage += "Online members of {}: ```\n".format(group)
             for y in onlineMembers:
@@ -31,6 +36,7 @@ class GroupList:
             for y in offlineMembers:
                 sentMessage += y
             sentMessage += "```"
+
         if onlineMembers == [] and offlineMembers == []:
             await self.bot.say("No members in {}.".format(group))
         else:
