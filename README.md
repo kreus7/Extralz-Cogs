@@ -1,11 +1,11 @@
 # Extralz-Cogs
 
 ## Description
-This branch of the repository is used to host my miscellaneous cogs from Red-DiscordBot v2.
+This branch of the repository is used to host my miscellaneous cogs for Red-DiscordBot v3.
 
 ## Installation
-To install these cogs, make sure you are using Red-DiscordBot v2 and it is up-to-date, then add the repository.  
-`[p]cog repo add extralz-cogs https://github.com/alzarath/Extralz-Cogs`
+To install these cogs, make sure you are using Red-DiscordBot v3 and it is up-to-date, then add the repository.  
+`[p]repo add https://github.com/Alzarath/Extralz-Cogs/tree/dev`
 
 You can then list and install the available cogs.  
 `[p]cog list extralz-cogs`

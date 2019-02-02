@@ -1,0 +1,8 @@
+{
+    "NAME" : "Sweeper",
+    "AUTHOR" : "Alzarath",
+    "SHORT" : "Generate playable Minesweeper games.",
+    "DESCRIPTION" : "Uses Discord's spoiler feature to generate playable Minesweeper games.\n\nUsage: [p]sweep [width] [height] [mineCount] [gameSeed]: Generate a board with [width]x[height] dimeensions, [mineCount] mines, using [gameSeed] seed. Every argument is optional.",
+    "TAGS" : [ "game" ],
+    "HIDDEN" : false
+}
