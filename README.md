@@ -14,14 +14,10 @@ Need more help with installation? RTFM
 `[p]help cog` and `[p]help cog install`
 
 ## Cogs
-### Drills
-Posts drills
+### Sweeper
+Generates and display a Minesweeper board.
 
-### MAL
-Fetches anime and manga information
-
-### XKCD
-Grabs XKCD comics
+At this time, the board is not guaranteed to be solvable without guessing and there is no "start point". Your mileage may vary.
 
 ## Assistance
-Need help? Have an idea for a new booru-related cog? Post an issue or contact me (Alzarath#8039) from the official [Red - Discord Bot Discord Server](https://discord.gg/0k4npTwMvTpv9wrh).
+Need help? Have an idea for a new booru-related cog? Post an issue or contact me (Alzarath#8039) from the official [Red - Discord Bot Cog Support Server](http://discord.gg/MFrCXm4).
