@@ -34,18 +34,16 @@ def generateBoard(width : int, height : int, mineCount : int, gameSeed : int):
     random.seed(gameSeed)
 
     x = mineCount
-    # Generate the mines
+    # Generate the mines, continuing until there are no more mines to be placed.
     while (x > 0):
+        # Randomly determines the position that the next mine will be placed.
         nextMineX = random.randint(0, width - 1)
         nextMineY = random.randint(0, height - 1)
         
+        # If there is no mine there, place one. Otherwise try again.
         if (sweeperBoard[nextMineX][nextMineY] != 9):
             sweeperBoard[nextMineX][nextMineY] = 9
             x -= 1
-            print(str(nextMineX) + ", " + str(nextMineY))
-    print("Finished generating mines")
-
-    x = 0
 
     # loops through each tile on the board
     for y in range(len(sweeperBoard)):
@@ -59,13 +57,13 @@ def generateBoard(width : int, height : int, mineCount : int, gameSeed : int):
                         for b in range(-1, 2):
                             # Ensures the checked tile is vertically on the board
                             if (((y + b) >= 0) and ((y + b) <= (height - 1)) and not ((a == 0) and (b == 0))):
-                                # If the checked tile is a mine, increase the number on the active tile to display the number of mines surrounding it
+                                # If the checked tile is a mine, increase the number on the active tile to display
+                                # the number of mines surrounding it
                                 sweeperBoard[x][y] += (sweeperBoard[x + a][y + b] == 9)
-                                print("(" + str(a+x) + ", " + str(b+y) + "): " + str(sweeperBoard[a+x][b+y]))
     
-    print(sweeperBoard)
     return sweeperBoard
 
+# Returns the board in a reader-friendly grid using emoticons and spoilers
 def displayBoard(sweeperBoard : int):
     if (isinstance(sweeperBoard, int)):
         error = "Invalid Board."
