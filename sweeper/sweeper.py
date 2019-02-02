@@ -1,12 +1,12 @@
 from redbot.core import checks, commands
 import random
 
-class Sweep(commands.Cog):
+class Sweeper(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
     @commands.command(pass_context=True)
-    async def sweep(self, ctx, width : int=7, height : int=7, mineCount : int=10, gameSeed : int=-1):
+    async def sweeper(self, ctx, width : int=7, height : int=7, mineCount : int=10, gameSeed : int=-1):
         """Generates a random Minesweeper board with optional dimensions, mine count, and seed.
 
            Example: !sweep random 9 9 10 345"""
