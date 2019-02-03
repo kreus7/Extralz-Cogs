@@ -14,20 +14,23 @@ class Sweeper(commands.Cog):
         if gameSeed < 0:
             gameSeed = generateSeed()
 
-        msboard = await ctx.send("Generating...")
+        # Displays a temporary message saying that the board is being generated.
+        message = await ctx.send("Generating...")
         messageText = displayBoard(generateBoard(width, height, mineCount, gameSeed))
-        await msboard.edit(content=messageText)
+        # Edits the temporary message with a board or an error message.
+        await message.edit(content=messageText)
 
 def generateBoard(width : int, height : int, mineCount : int, gameSeed : int):
     """Generates the board using the supplied attributes"""
-    # Tests to ensure the board is possible to generate.
+    # Return an error code if there are no free spaces.
     freeSpaceCount = (width * height) - mineCount
     if (freeSpaceCount <= 0):
         return -1
+    # Return an error code if the height or width are too small.
     if (height <= 0 or width <= 0):
         return -2
 
-    # Initialize the board with 0's
+    # Initialize the board with 0's.
     sweeperBoard = [[0 for x in range(width)] for y in range(height)]
 
     # Sets the seed in which the mines will be generated.
@@ -45,26 +48,27 @@ def generateBoard(width : int, height : int, mineCount : int, gameSeed : int):
             sweeperBoard[nextMineX][nextMineY] = 9
             x -= 1
 
-    # loops through each tile on the board
+    # loops through each tile on the board to set the mine count.
     for y in range(len(sweeperBoard)):
         for x in range(len(sweeperBoard[x])):
-            # If it has a mine on the tile, ignore it
+            # If the active tile has a mine, ignore it.
             if (sweeperBoard[x][y] != 9):
-                # Loops through the tiles surrounding the active tile
+                # Loops through the tiles surrounding the active tile.
                 for a in range(-1, 2):
-                    # Ensures the checked tile is horizontally on the board
+                    # Ensures the checked tile is horizontally on the board.
                     if (((x + a) >= 0) and ((x + a) <= (width - 1))):
                         for b in range(-1, 2):
-                            # Ensures the checked tile is vertically on the board
+                            # Ensures the checked tile is vertically on the board.
                             if (((y + b) >= 0) and ((y + b) <= (height - 1)) and not ((a == 0) and (b == 0))):
-                                # If the checked tile is a mine, increase the number on the active tile to display
-                                # the number of mines surrounding it
+                                # If the checked tile is a mine, increase the number on the active tile to display the
+                                # number of mines surrounding it.
                                 sweeperBoard[x][y] += (sweeperBoard[x + a][y + b] == 9)
     
     return sweeperBoard
 
-# Returns the board in a reader-friendly grid using emoticons and spoilers
 def displayBoard(sweeperBoard : int):
+    """Generates a visual representation of the board using emoticons and spoilers"""
+    # If the provided sweeperBoard is simply an integer instead of a list, provide an error
     if (isinstance(sweeperBoard, int)):
         error = "Invalid Board."
         if (sweeperBoard == -1):
@@ -73,6 +77,7 @@ def displayBoard(sweeperBoard : int):
             error += " Ensure the width and height are greater than 0."
         return error
     
+    # Checks each tile and adds an emoticon depending on the number on the tile. 9 is a mine.
     boardResult = "Sweeper"
     for y in sweeperBoard:
         boardResult += "\n"
