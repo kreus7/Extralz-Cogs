@@ -1,7 +1,9 @@
 # Extralz-Cogs
 
 ## Description
-This repository will be used to host my miscellaneous cogs.
+This repository was used to host my miscellaneous cogs for Red V2. It is no
+longer maintained. They do not work for V3 and are no longer maintained. The
+repository remains for historical purposes.
 
 ## Installation
 To install these cogs, make sure Red-DiscordBot is up-to-date and add the repository.  
@@ -24,4 +26,4 @@ Fetches anime and manga information
 Grabs XKCD comics
 
 ## Assistance
-Need help? Have an idea for a new booru-related cog? Post an issue or contact me (Alzarath#8039) from the official [Red - Discord Bot Discord Server](https://discord.gg/0k4npTwMvTpv9wrh).
+This repository is no longer supported. You're on your own, pal.
