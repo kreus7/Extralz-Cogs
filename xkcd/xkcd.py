@@ -1,6 +1,6 @@
 import discord
 from redbot.core import commands
-from .utils.chat_formatting import *
+from redbot.core.utils.chat_formatting import *
 from __main__ import send_cmd_help
 import aiohttp
 import random
