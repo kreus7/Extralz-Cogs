@@ -29,11 +29,11 @@ class XKCD(commands.Cog):
                 search = "http://xkcd.com/{}/info.0.json".format(random.randint(1, int(website["num"])))
 
                 url = await fetch_comic(self, comic=search)
-                await self.bot.say(url)
+                await ctx.send(url)
             if comicID == "latest":
                 search = "http://xkcd.com/info.0.json".format(comicID)
                 url = await fetch_comic(self, comic=search)
-                await self.bot.say(url)
+                await ctx.send(url)
 
 async def fetch_comic(self, comic):
     try:
