@@ -1,7 +1,6 @@
 import discord
 from redbot.core import commands
 from redbot.core.utils.chat_formatting import *
-from __main__ import send_cmd_help
 import aiohttp
 import random
 
@@ -31,12 +30,10 @@ class XKCD(commands.Cog):
 
                 url = await fetch_comic(self, comic=search)
                 await self.bot.say(url)
-            elif comicID == "latest":
+            if comicID == "latest":
                 search = "http://xkcd.com/info.0.json".format(comicID)
                 url = await fetch_comic(self, comic=search)
                 await self.bot.say(url)
-            else:
-                await send_cmd_help(ctx)
 
 async def fetch_comic(self, comic):
     try:
